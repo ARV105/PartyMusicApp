@@ -15,10 +15,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--MainVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PartyRock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainVC" customModule="PartyRock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -75,11 +75,11 @@
                                 <rect key="frame" x="0.0" y="171" width="375" height="496"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="84" id="h9X-GH-3ie">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PartyCell" rowHeight="84" id="h9X-GH-3ie" customClass="PartyCell" customModule="PartyRock" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h9X-GH-3ie" id="Pv7-Ux-yFP">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="83.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="83"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="party rock" translatesAutoresizingMaskIntoConstraints="NO" id="JpS-jq-G4n">
@@ -108,8 +108,16 @@
                                                 <constraint firstItem="yfd-0i-qYu" firstAttribute="trailing" secondItem="Pv7-Ux-yFP" secondAttribute="trailingMargin" id="sTe-w8-iYu"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="videoPreviewImage" destination="JpS-jq-G4n" id="Woc-xh-tcn"/>
+                                            <outlet property="videoTitle" destination="yfd-0i-qYu" id="QYX-Yl-Jtd"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8bC-Xf-vdC" id="sKx-9z-ZiN"/>
+                                    <outlet property="delegate" destination="8bC-Xf-vdC" id="XX9-JJ-1bd"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -126,15 +134,19 @@
                             <constraint firstItem="dWh-P9-mP7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="107" id="zC5-uu-2am"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="G4Q-Qq-Ma1" id="DEf-er-hIx"/>
+                        <segue destination="mne-SF-RPl" kind="show" identifier="VideoVC" id="fLz-HG-seZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-402" y="116"/>
         </scene>
-        <!--View Controller-->
+        <!--VideoVC-->
         <scene sceneID="YPL-md-o6j">
             <objects>
-                <viewController id="mne-SF-RPl" sceneMemberID="viewController">
+                <viewController id="mne-SF-RPl" customClass="VideoVC" customModule="PartyRock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uek-pX-LkV"/>
                         <viewControllerLayoutGuide type="bottom" id="RsP-K1-MFx"/>
@@ -142,12 +154,41 @@
                     <view key="view" contentMode="scaleToFill" id="Gsz-Ju-uAP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leJ-JB-ewc">
+                                <rect key="frame" x="77" y="256" width="220" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="nx9-uZ-Xel"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="StillTime-Regular" family="Still Time" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wtr-Cp-wal">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="248"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="leJ-JB-ewc" firstAttribute="top" secondItem="uek-pX-LkV" secondAttribute="bottom" constant="236" id="4op-Zj-6Db"/>
+                            <constraint firstItem="leJ-JB-ewc" firstAttribute="leading" secondItem="Gsz-Ju-uAP" secondAttribute="leadingMargin" constant="61" id="G6l-wM-NQV"/>
+                            <constraint firstItem="Wtr-Cp-wal" firstAttribute="leading" secondItem="Gsz-Ju-uAP" secondAttribute="leading" id="HQY-0q-MoX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="leJ-JB-ewc" secondAttribute="trailing" constant="62" id="L2e-oH-cna"/>
+                            <constraint firstItem="Wtr-Cp-wal" firstAttribute="top" secondItem="Gsz-Ju-uAP" secondAttribute="top" id="XS4-Cl-G14"/>
+                            <constraint firstItem="leJ-JB-ewc" firstAttribute="top" secondItem="Wtr-Cp-wal" secondAttribute="bottom" constant="8" symbolic="YES" id="Zal-mG-L12"/>
+                            <constraint firstItem="Wtr-Cp-wal" firstAttribute="centerX" secondItem="leJ-JB-ewc" secondAttribute="centerX" id="pOv-Qd-8ay"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="titleLbl" destination="leJ-JB-ewc" id="u4F-Pf-SNt"/>
+                        <outlet property="webView" destination="Wtr-Cp-wal" id="Qgc-rn-Zdn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pp9-FD-mYG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="303" y="116"/>
+            <point key="canvasLocation" x="360.80000000000001" y="115.59220389805098"/>
         </scene>
     </scenes>
     <resources>
